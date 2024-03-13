@@ -49,7 +49,7 @@ public class ClienteController {
 		public ResponseEntity<List<Cliente>> findAll(){
 			try {
 				List<Cliente> cliente = this.clienteService.listAll();
-				return new ResponseEntity<>(null,HttpStatus.OK);
+				return new ResponseEntity<>(cliente,HttpStatus.OK);
 			}catch(Exception e){
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			}
@@ -75,10 +75,10 @@ public class ClienteController {
 			}
 		}
 		
-		@GetMapping("/findByName")
-		public ResponseEntity<List<Cliente>> findByName (@RequestParam String nome){
+		@GetMapping("/findByNome")
+		public ResponseEntity<List<Cliente>> findByNome (@RequestParam String nome){
 			try {
-				List<Cliente> lista = this.clienteService.findByName(nome);
+				List<Cliente> lista = this.clienteService.findByNome(nome);
 				return new ResponseEntity<>(lista,HttpStatus.CREATED);
 			}catch(Exception e) {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
@@ -96,10 +96,10 @@ public class ClienteController {
 			}
 		}
 		
-		@GetMapping("/findByNameLike")
-		public ResponseEntity<List<Cliente>> findByNameLike (@RequestParam String nome){
+		@GetMapping("/findByNomeLike")
+		public ResponseEntity<List<Cliente>> findByNomeLike (@RequestParam String nome){
 			try {
-				List<Cliente> lista = this.clienteService.findByName(nome);
+				List<Cliente> lista = this.clienteService.findByNome(nome);
 				return new ResponseEntity<>(lista,HttpStatus.CREATED);
 			}catch(Exception e) {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);

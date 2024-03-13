@@ -44,8 +44,8 @@ public class ClienteService {
 		return cliente;
 	}
 	
-	public List<Cliente> findByName(String nome) {
-		List<Cliente> lista = clienteRepository.findByName(nome);
+	public List<Cliente> findByNome(String nome) {
+		List<Cliente> lista = clienteRepository.findByNome(nome);
 		return lista;
 	}
 
@@ -55,7 +55,7 @@ public class ClienteService {
 	}
 	
 	public List<Cliente> findByNameLike(String nome) {
-		List<Cliente> lista = clienteRepository.findByNameLike(nome);
+		List<Cliente> lista = clienteRepository.findByNomeLike(nome);
 		return lista;
 	}
 }

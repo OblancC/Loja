@@ -41,8 +41,8 @@ public class FuncionarioService {
 		return "Item Atualizado com sucesso!";
 	}
 	
-	public List<Funcionario> findByAge(int idade){
-		List<Funcionario> funcionario= funcionarioRepository.findByAge(idade);
+	public List<Funcionario> findByIdade(int idade){
+		List<Funcionario> funcionario= funcionarioRepository.findByIdade(idade);
 		return funcionario;
 	}
 	
@@ -51,8 +51,8 @@ public class FuncionarioService {
 		return funcionario;
 	}
 	
-	public List<Funcionario> findByName(String nome){
-		List<Funcionario> funcionario = funcionarioRepository.findByName(nome);
+	public List<Funcionario> findByNome(String nome){
+		List<Funcionario> funcionario = funcionarioRepository.findByNome(nome);
 		return funcionario;
 	}
 }

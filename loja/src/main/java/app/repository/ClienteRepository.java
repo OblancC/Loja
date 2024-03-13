@@ -10,9 +10,9 @@ import app.entity.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente,Long>{
 
 	@Query("FROM Cliente c WHERE c.nome LIKE %:nome%")
-	public List<Cliente> findByNameLike(String nome);
+	public List<Cliente> findByNomeLike(String nome);
 	
-	public List<Cliente> findByName(String nome);
+	public List<Cliente> findByNome(String nome);
 	
 	@Query("FROM Cliente c WHERE c.idade> :idade")
 	public List<Cliente> findByOlder(int idade);

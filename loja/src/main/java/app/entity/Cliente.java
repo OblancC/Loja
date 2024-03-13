@@ -35,7 +35,7 @@ public class Cliente {
 	@NotNull(message = "Este campo não pode ser nulo")
 	private int telefone;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente")
 	@JsonIgnoreProperties("cliente")
 	private List<Vendas> vendas;
 	

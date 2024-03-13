@@ -47,7 +47,7 @@ public class ProdutoController {
 	public ResponseEntity<List<Produto>> listAll() {
 		try {
 			List<Produto> produto = this.produtoService.listAll();
-			return new ResponseEntity<>(null,HttpStatus.OK);
+			return new ResponseEntity<>(produto,HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			
@@ -63,4 +63,6 @@ public class ProdutoController {
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
 }

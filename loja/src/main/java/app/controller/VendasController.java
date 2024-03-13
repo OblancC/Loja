@@ -46,7 +46,7 @@ public class VendasController {
 	public ResponseEntity<List<Vendas>> listAll(){
 		try {
 			List<Vendas> vendas = this.vendasService.listAll();
-			return new ResponseEntity<> (null, HttpStatus.OK);
+			return new ResponseEntity<> (vendas, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 		}

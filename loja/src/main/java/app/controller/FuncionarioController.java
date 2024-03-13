@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +43,16 @@ public class FuncionarioController {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 			}
 		}
+		
+		@GetMapping("/listAll")
+		public ResponseEntity<List<Funcionario>> listAll(){
+			try {
+				List<Funcionario> funcionario = this.funcionarioService.listAll();
+				return new ResponseEntity<>(funcionario,HttpStatus.OK);
+			}catch(Exception e){
+				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+			}
+		}
 		@PutMapping("/update/{id}")
 		public ResponseEntity<String> update(@PathVariable long id, @RequestBody Funcionario Funcionario){
 			try {
@@ -55,9 +64,9 @@ public class FuncionarioController {
 		}
 		
 		@GetMapping("/findByAge")
-		public ResponseEntity<List<Funcionario>> findByAge(@RequestParam int idade){
+		public ResponseEntity<List<Funcionario>> findByIdade(@RequestParam int idade){
 			try {
-				List<Funcionario> lista = this.funcionarioService.findByAge(idade);
+				List<Funcionario> lista = this.funcionarioService.findByIdade(idade);
 				return new ResponseEntity<>(lista,HttpStatus.OK);
 			}catch(Exception e) {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
@@ -74,10 +83,10 @@ public class FuncionarioController {
 			}
 		}
 		
-		@GetMapping("/findByName")
-		public ResponseEntity<List<Funcionario>> findByName(@RequestParam String name){
+		@GetMapping("/findByNome")
+		public ResponseEntity<List<Funcionario>> findByNome(@RequestParam String nome){
 			try {
-				List<Funcionario> lista = this.funcionarioService.findByName(name);
+				List<Funcionario> lista = this.funcionarioService.findByNome(nome);
 				return new ResponseEntity<>(lista,HttpStatus.OK);
 			}catch(Exception e) {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);

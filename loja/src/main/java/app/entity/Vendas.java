@@ -31,15 +31,15 @@ public class Vendas {
 	private double valorTotal;
 	private String enderecoEntrega;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties("vendas")
 	private Cliente cliente;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "vendas_poduto")
+	@ManyToMany(cascade = CascadeType.PERSIST)
+	@JoinTable(name = "vendas_produto")
 	private List<Produto> produto;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JsonIgnoreProperties("vendas")
 	private Funcionario funcionario;
 }

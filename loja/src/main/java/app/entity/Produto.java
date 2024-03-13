@@ -23,4 +23,6 @@ public class Produto {
 	private String nome;
 	@NotNull(message = "Este campo não pode ser nulo")
 	private double valor;
+	@NotNull(message = "Este campo não pode ser nulo")
+	private String categoria;
 }

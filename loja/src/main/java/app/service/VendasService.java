@@ -40,4 +40,20 @@ public class VendasService {
 		this.vendasRepository.save(vendas);
 		return "Item atualizado com sucesso!";
 	}
+	
+
+	public List<Vendas> findByEnderecoEntrega(String enderecoEntrega){
+		List<Vendas> vendas = vendasRepository.findByEnderecoEntrega(enderecoEntrega);
+		return vendas;
+	}
+	
+	public List<Vendas> findByValorTotal(double valorTotal){
+		List<Vendas> vendas = vendasRepository.findByValorTotal(valorTotal);
+		return vendas;
+	}
+	
+	public List<Vendas> findByDataVenda(String dataVenda){
+		List<Vendas> vendas = vendasRepository.findByDataVenda(dataVenda);
+		return vendas;
+	}
 }

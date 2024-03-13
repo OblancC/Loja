@@ -40,4 +40,19 @@ public class ProdutoService {
 		this.produtoRepository.save(produto);
 		return "Produto atualizado com sucesso!";
 	}
+	
+	public List<Produto> findByNome(String nome){
+		List<Produto> produto = produtoRepository.findByNome(nome);
+		return produto;
+	}
+	
+	public List<Produto> findByCategoria(String categoria){
+		List<Produto> produto = produtoRepository.findByCategoria(categoria);
+		return produto;
+	}
+	
+	public List<Produto> findByValor(double valor){
+		List<Produto> produto = produtoRepository.findByValor(valor);
+		return produto;
+	}
 }

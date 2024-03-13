@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Vendas;
@@ -58,6 +59,36 @@ public class VendasController {
 			String mensagem = this.vendasService.update(vendas,id);
 			return new ResponseEntity<>(mensagem,HttpStatus.OK);
 		}catch(Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByEndereco")
+	public ResponseEntity<List<Vendas>> findByEnderecoEntrega(@RequestParam String enderecoEntrega){
+		try {
+			List<Vendas> lista = this.vendasService.findByEnderecoEntrega(enderecoEntrega);
+			return new ResponseEntity<>(lista,HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByDataVendas")
+	public ResponseEntity<List<Vendas>> findByDataVenda(@RequestParam String dataVenda){
+		try {
+			List<Vendas> lista = this.vendasService.findByDataVenda(dataVenda);
+			return new ResponseEntity<>(lista,HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findByValorVendas")
+	public ResponseEntity<List<Vendas>> findByValorVenda(@RequestParam double valorTotal){
+		try {
+			List<Vendas> lista =this.vendasService.findByValorTotal(valorTotal);
+			return new ResponseEntity<>(lista,HttpStatus.OK);
+		}catch(Exception e){
 			return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
 		}
 	}

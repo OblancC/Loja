@@ -29,6 +29,7 @@ public class Vendas {
 	private Long id;
 	@NotNull(message = "Este campo não pode ser nulo")
 	private double valorTotal;
+	private String dataVenda;
 	private String enderecoEntrega;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)

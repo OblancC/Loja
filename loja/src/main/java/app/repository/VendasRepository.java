@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import app.entity.Vendas;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface VendasRepository extends JpaRepository<Vendas, Long> {
 	
 	public List<Vendas> findByDataVenda(String dataVenda);

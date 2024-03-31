@@ -3,6 +3,7 @@ package app.service;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,33 +15,29 @@ import jakarta.validation.Valid;
 @Service
 public class VendasService {
 	
-	@Autowired
+	@Resource
 	private VendasRepository vendasRepository;
 		
 	public String save(@Valid Vendas vendas) {
-		double valorTotal = this.calcularValorTotal(vendas.getProduto());
+		double valorTotal = calcularValorTotal(vendas.getProduto());
 		vendas.setValorTotal(valorTotal);
-		this.vendasRepository.save(vendas);
+		vendasRepository.save(vendas);
 		return "Vendas salva com sucesso";
 	}
 	
 	public Vendas findById(Long id) {
-		Optional<Vendas> vendas = this.vendasRepository.findById(id);
+		Optional<Vendas> vendas = vendasRepository.findById(id);
 		return vendas.get();
 	}
 	
 	public List<Vendas> listAll(){
-		List<Vendas> vendas = this.vendasRepository.findAll();
+		List<Vendas> vendas = vendasRepository.findAll();
 		return vendas;
 	}
 	
 	public String delete(Long id) {
-		try {
-			this.vendasRepository.deleteById(id);
-			return "Item deletado com sucesso!";	
-		}catch(Exception ex) {
-			throw ex;
-		}
+		vendasRepository.deleteById(id);
+		return "Item deletado com sucesso!";
 	}
 	
 	public String update(Vendas vendas, Long id) {
@@ -50,10 +47,10 @@ public class VendasService {
 			vendas.setValorTotal(0);
 			return "Produto Foi Cancelado";
 		}else {
-			double valorTotal = this.calcularValorTotal(vendas.getProduto());
+			double valorTotal = calcularValorTotal(vendas.getProduto());
 			vendas.setValorTotal(valorTotal);
-			vendas = this.verificarStatus(vendas);
-			this.vendasRepository.save(vendas);
+			vendas = verificarStatus(vendas);
+			vendasRepository.save(vendas);
 			return "Item atualizado com sucesso!";
 		}
 	}
@@ -77,20 +74,17 @@ public class VendasService {
 	
 
 	public List<Vendas> findByEnderecoEntrega(String enderecoEntrega){
-		List<Vendas> vendas = vendasRepository.findByEnderecoEntrega(enderecoEntrega);
-		return vendas;
+        return vendasRepository.findByEnderecoEntrega(enderecoEntrega);
 	}
 	
 	
 	
 	public List<Vendas> findByValorTotal(double valorTotal){
-		List<Vendas> vendas = vendasRepository.findByValorTotal(valorTotal);
-		return vendas;
+        return vendasRepository.findByValorTotal(valorTotal);
 	}
 	
 	public List<Vendas> findByDataVenda(String dataVenda){
-		List<Vendas> vendas = vendasRepository.findByDataVenda(dataVenda);
-		return vendas;
+        return vendasRepository.findByDataVenda(dataVenda);
 	}
 	
 }

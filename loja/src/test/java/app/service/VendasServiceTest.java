@@ -2,9 +2,13 @@ package app.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import app.entity.Produto;
 import app.entity.Vendas;
 import app.repository.VendasRepository;
+import jakarta.validation.ValidationException;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -107,11 +112,7 @@ public class VendasServiceTest {
 	//Update ------------------------------------------------------------------
 	//-------------------------------------------------------------------------
 	
-	@Test
-	@DisplayName("[Teste] Update")
-	void TestUpdate() {
-		
-	}
+	
 	
 	//-------------------------------------------------------------------------
 	//CalcularValorTotal-------------------------------------------------------
@@ -143,10 +144,30 @@ public class VendasServiceTest {
 	//-------------------------------------------------------------------------
 	
 	@Test
-	@DisplayName("[Teste]Verificar o Status do Produto")
-	void verificarStatus() {
+	@DisplayName("[Teste]Verificar o Status da Venda")
+	void testverificarStatus() {
+		Vendas vendas = new Vendas();
+		vendas.setStatus("CANCELADO");
+		Vendas result = vendasService.verificarStatus(vendas);
+		
+		assertEquals("CANCELADO", vendas.getStatus());
+		assertNull(result.getProduto());
+		assertEquals(0.0,result.getValorTotal());
+	}
+	
+	@Test
+	@DisplayName("[Exception]Verificar o Status da Venda")
+	void testverificarStatusException() {
+		Vendas vendas = new Vendas();
+		vendas.setStatus("");
+		doThrow(ValidationException.class).when(repository).save(any(Vendas.class));	
+		assertThrows(ValidationException.class, ()->{
+			vendasService.update(vendas,1L);
+		});
 		
 	}
+	
+	
 	
 	@Mock
 	private VendasRepository repository;

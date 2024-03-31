@@ -42,17 +42,11 @@ public class VendasService {
 	
 	public String update(Vendas vendas, Long id) {
 		vendas.setId(id);
-		if(vendas.getStatus().equals("CANCELADO")) {
-			vendas.setProduto(null);
-			vendas.setValorTotal(0);
-			return "Produto Foi Cancelado";
-		}else {
 			double valorTotal = calcularValorTotal(vendas.getProduto());
 			vendas.setValorTotal(valorTotal);
 			vendas = verificarStatus(vendas);
 			vendasRepository.save(vendas);
 			return "Item atualizado com sucesso!";
-		}
 	}
 	
 	public Vendas verificarStatus(Vendas vendas) {

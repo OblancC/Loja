@@ -54,7 +54,7 @@ public class ClienteService {
 		return lista;
 	}
 	
-	public List<Cliente> findByNameLike(String nome) {
+	public List<Cliente> findByNomeLike(String nome) {
 		List<Cliente> lista = clienteRepository.findByNomeLike(nome);
 		return lista;
 	}

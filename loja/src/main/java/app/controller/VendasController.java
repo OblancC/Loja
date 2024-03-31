@@ -29,6 +29,7 @@ public class VendasController {
 			String mensagem = this.vendasService.save(vendas);
 			return new ResponseEntity<String>(mensagem, HttpStatus.OK);
 		}catch(Exception e){
+			System.out.println(e.getMessage());
 			return new ResponseEntity<String> ("Erro Detectado", HttpStatus.BAD_REQUEST);
 		}
 	}

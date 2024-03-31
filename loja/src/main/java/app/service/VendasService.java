@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import app.entity.Produto;
 import app.entity.Vendas;
 import app.repository.VendasRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class VendasService {
@@ -15,7 +17,9 @@ public class VendasService {
 	@Autowired
 	private VendasRepository vendasRepository;
 		
-	public String save(Vendas vendas) {
+	public String save(@Valid Vendas vendas) {
+		double valorTotal = this.calcularValorTotal(vendas.getProduto());
+		vendas.setValorTotal(valorTotal);
 		this.vendasRepository.save(vendas);
 		return "Vendas salva com sucesso";
 	}
@@ -31,14 +35,44 @@ public class VendasService {
 	}
 	
 	public String delete(Long id) {
-		this.vendasRepository.deleteById(id);
-		return "Item deletado com sucesso!";
+		try {
+			this.vendasRepository.deleteById(id);
+			return "Item deletado com sucesso!";	
+		}catch(Exception ex) {
+			throw ex;
+		}
 	}
 	
 	public String update(Vendas vendas, Long id) {
 		vendas.setId(id);
-		this.vendasRepository.save(vendas);
-		return "Item atualizado com sucesso!";
+		if(vendas.getStatus().equals("CANCELADO")) {
+			vendas.setProduto(null);
+			vendas.setValorTotal(0);
+			return "Produto Foi Cancelado";
+		}else {
+			double valorTotal = this.calcularValorTotal(vendas.getProduto());
+			vendas.setValorTotal(valorTotal);
+			vendas = this.verificarStatus(vendas);
+			this.vendasRepository.save(vendas);
+			return "Item atualizado com sucesso!";
+		}
+	}
+	
+	public Vendas verificarStatus(Vendas vendas) {
+		if(vendas.getStatus().equals("CANCELADO")) {
+			vendas.setValorTotal(0);
+			vendas.setProduto(null);
+		}
+		return vendas;
+	}
+	
+	public double calcularValorTotal(List<Produto> produtos) {
+		double soma = 0;
+		if(produtos!= null)
+			for(int i=0;i<produtos.size();i++) {
+				soma += produtos.get(i).getValor();
+			}
+		return soma;
 	}
 	
 
@@ -46,6 +80,8 @@ public class VendasService {
 		List<Vendas> vendas = vendasRepository.findByEnderecoEntrega(enderecoEntrega);
 		return vendas;
 	}
+	
+	
 	
 	public List<Vendas> findByValorTotal(double valorTotal){
 		List<Vendas> vendas = vendasRepository.findByValorTotal(valorTotal);
@@ -56,4 +92,5 @@ public class VendasService {
 		List<Vendas> vendas = vendasRepository.findByDataVenda(dataVenda);
 		return vendas;
 	}
+	
 }

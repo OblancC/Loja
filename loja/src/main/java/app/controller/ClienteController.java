@@ -99,7 +99,7 @@ public class ClienteController {
 		@GetMapping("/findByNomeLike")
 		public ResponseEntity<List<Cliente>> findByNomeLike (@RequestParam String nome){
 			try {
-				List<Cliente> lista = this.clienteService.findByNome(nome);
+				List<Cliente> lista = this.clienteService.findByNomeLike(nome);
 				return new ResponseEntity<>(lista,HttpStatus.CREATED);
 			}catch(Exception e) {
 				return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);

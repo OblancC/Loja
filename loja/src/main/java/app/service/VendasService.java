@@ -78,6 +78,8 @@ public class VendasService {
 	}
 	
 	public List<Vendas> findByDataVenda(String dataVenda){
+		if(dataVenda == null)
+			throw new RuntimeException();
         return vendasRepository.findByDataVenda(dataVenda);
 	}
 	

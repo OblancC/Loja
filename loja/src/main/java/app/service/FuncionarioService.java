@@ -31,7 +31,7 @@ public class FuncionarioService {
 	}
 	
 	public String delete(Long id) {
-		this.funcionarioRepository.deleteById(id);
+		funcionarioRepository.deleteById(id);
 		return "Item deletado com Sucesso";
 	}
 	

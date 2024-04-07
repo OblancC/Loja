@@ -34,6 +34,16 @@ public class FuncionarioController {
 			
 		}
 	}
+	
+	@PutMapping("/delete/{id}")
+	public ResponseEntity<String> delete(@PathVariable long id){
+		try {
+			String mensagem = this.funcionarioService.delete(id);
+			return new ResponseEntity<>(mensagem, HttpStatus.OK);
+		}catch(Exception e){
+			return new ResponseEntity<String>("Ocorreu esse erro: " + e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+	}
 		@GetMapping("/findById/{id}")
 		public ResponseEntity<Funcionario> findById(@PathVariable Long id){
 			try {
